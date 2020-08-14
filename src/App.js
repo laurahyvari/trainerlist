@@ -12,17 +12,16 @@ import { Switch, Route } from 'react-router-dom';
 
 function App() {
 
-  /* const Routes = () => {
-    return (
-    
-    ); */
  
 
   return (
     <div className="App">
  <AppBar position="static">
  </AppBar>
-  <Toolbar> </Toolbar>
+  <Toolbar> 
+    <Typography variant="h6">Trainerlist</Typography>
+    
+     </Toolbar>
    <Switch> {/* The Switch decides which component to show based on the current URL.*/}
         <Route exact path='/' component={Customerlist}></Route>
         <Route exact path='/trainings' component={Trainingslist}></Route>

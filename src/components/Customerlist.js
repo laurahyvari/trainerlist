@@ -3,6 +3,8 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Button from '@material-ui/core/Button';
 import Trainingslist from './Trainingslist';
+import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer'
 import { Link } from "react-router-dom";
 
 /* Create pages to list customers and trainings
@@ -28,6 +30,59 @@ const fetchData = () => {
 useEffect(() => {
 	fetchData();
 }, []);
+
+const saveCustomer = (customer) => {
+    fetch('https://customerrest.herokuapp.com/api/customers', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(customer)
+  }  )
+  .then(res => fetchData())
+  .catch(err => console.error(err))
+}
+
+const deleteCustomer = (link) => {
+    if(window.confirm('Are you sure?')){
+
+    
+    fetch(link, {method: 'DELETE'})
+    .then(res => fetchData())
+    .catch(err => console.error(err))
+    }
+}
+
+const updateCustomer = (customer, link) =>{
+
+    fetch(link,  {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+
+    body: JSON.stringify(customer)
+})
+.then(res => fetchData())
+.catch(err => console.error(err))
+}
+
+
+const getTrainings = (customer, link) =>{
+
+    fetch(link, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    
+
+        body: JSON.stringify(customer)
+
+    }).then(res => fetchData())
+    .catch(err => console.error(err))
+    }
+
 
     const columns = [
         {
@@ -65,11 +120,28 @@ useEffect(() => {
         accessor: 'phone',
         
     },
+    
+    {
+        Header: 'Trainings',
+        accessor:'links[2].href', 
+
+    },
+
      {
-        sortable:true,
-        filterable: true,
+        sortable:false,
+        filterable: false,
         width:100,
-        
+
+         Cell: row => <EditCustomer updateCustomer ={updateCustomer} customer={row.original} />
+
+    },
+    {
+        sortable:false,
+        filterable:false,
+        width:100,
+        accessor:'links[0].href',
+        Cell: row => <Button size="small" color="default" onClick={() => deleteCustomer(row.value)}>Delete</Button>
+
     } 
     ]
 
@@ -82,6 +154,7 @@ useEffect(() => {
             Trainings
          </button>
 </Link>
+        <AddCustomer saveCustomer={saveCustomer} />
         < ReactTable filterable = {true} data={customers} columns = {columns} />            
         </div>
     );

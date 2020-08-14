@@ -19,10 +19,22 @@ export default function Trainingslist(){
    useEffect(() => {
        fetchData();
    }, []);
+
+   const deleteTraining = (link) => {
+    if(window.confirm('Are you sure?')){
+
+    
+    fetch(link, {method: 'DELETE'})
+    .then(res => fetchData())
+    .catch(err => console.error(err))
+    }
+}
+
    const columns = [
     {
     Header: 'Date',
     accessor: 'date',
+  
     },  
 
 {
@@ -34,7 +46,15 @@ export default function Trainingslist(){
     Header: 'Activity',
     accessor: 'activity',
 
-}
+},
+{
+        sortable: false,
+        filterable: false,
+        width: 100,
+        accessor:'links[0].href',
+        Cell: row => <Button size="small" color="default" onClick={() => deleteTraining(row.value)}>Delete</Button>
+
+    } 
 ]
 
    return(

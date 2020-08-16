@@ -6,7 +6,8 @@ import moment from 'moment';
 import { Link } from "react-router-dom";
 
 export default function Trainingslist(){
-
+  
+    moment().format('MMMM Do YYYY, h:mm:ss a');
     const [courses, setCourses] = useState([]);
    
    const fetchData = () => {
@@ -14,10 +15,12 @@ export default function Trainingslist(){
        fetch('https://customerrest.herokuapp.com/api/trainings')
        .then(response => response.json())
        .then(data => setCourses(data.content))
+       
    }
    
    useEffect(() => {
        fetchData();
+       
    }, []);
 
    const deleteTraining = (link) => {
@@ -34,7 +37,7 @@ export default function Trainingslist(){
     {
     Header: 'Date',
     accessor: 'date',
-  
+    
     },  
 
 {

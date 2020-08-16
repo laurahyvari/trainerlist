@@ -68,21 +68,6 @@ const updateCustomer = (customer, link) =>{
 }
 
 
-const getTrainings = (customer, link) =>{
-
-    fetch(link, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    
-
-        body: JSON.stringify(customer)
-
-    }).then(res => fetchData())
-    .catch(err => console.error(err))
-    }
-
 
     const columns = [
         {

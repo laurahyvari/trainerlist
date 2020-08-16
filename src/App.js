@@ -7,6 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
 
+
+
 import { Switch, Route } from 'react-router-dom';
 
 
@@ -25,6 +27,7 @@ function App() {
    <Switch> {/* The Switch decides which component to show based on the current URL.*/}
         <Route exact path='/' component={Customerlist}></Route>
         <Route exact path='/trainings' component={Trainingslist}></Route>
+      
       </Switch>
     
   
